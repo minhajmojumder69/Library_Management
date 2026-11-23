@@ -2,7 +2,7 @@ from fastapi import FastAPI,Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 import models
-from models import Books,Users,Reservations
+from models import Books,Users,Reservations,IssueRecords
 from typing import Annotated, Optional
 from database import engine,SessionLocal
 from fastapi.responses import JSONResponse
@@ -13,7 +13,7 @@ app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
 app.include_router(auth.router)
-# app.include_router(admin.router)
+app.include_router(admin.router)
 
 def get_db():
     db = SessionLocal()
@@ -81,3 +81,13 @@ def my_reservation(user: user_dependency, db: database_dependency):
     reservation = db.query(Reservations).filter(Reservations.user_id == user.get('id')).all()
     
     return reservation
+
+@app.get('/issues/my')
+def my_issued_books(user: user_dependency, db: database_dependency):
+    if user is None:
+        raise HTTPException(status_code=401, detail='Failed Authentication')
+    issues = db.query(IssueRecords).filter(
+            IssueRecords.user_id == user.get('id'),
+            IssueRecords.status == 'issued').all()
+
+    return issues

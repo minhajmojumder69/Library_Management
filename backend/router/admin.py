@@ -54,7 +54,7 @@ def calculate_fine(due_date: datetime, return_date: datetime):
 @router.post('/admin/add_book')
 def add_book(user: user_dependency,db: database_dependency,new_book: BookCreate):
 
-    if user is None or user.get('role') != 'librarian':
+    if user is None or user.get('role') != 'Librarian':
             raise HTTPException(status_code=401, detail='Failed Authentication')
 
     book_model = Books(
@@ -70,7 +70,7 @@ def add_book(user: user_dependency,db: database_dependency,new_book: BookCreate)
 @router.put('/admin/update_book/{book_id}')
 def update_book(user: user_dependency,db: database_dependency,update_book: Book_update, book_id: int):
 
-    if user is None or user.get('role') != 'librarian':
+    if user is None or user.get('role') != 'Librarian':
             raise HTTPException(status_code=401, detail='Failed Authentication')
 
     book = db.query(Books).filter(Books.id == book_id).first()
@@ -89,7 +89,7 @@ def update_book(user: user_dependency,db: database_dependency,update_book: Book_
 @router.delete('/admin/delete_book/{book_id}')
 def delete_book(user: user_dependency,db: database_dependency, book_id: int):
 
-    if user is None or user.get('role') != 'librarian':
+    if user is None or user.get('role') != 'Librarian':
             raise HTTPException(status_code=401, detail='Failed Authentication')
 
     book = db.query(Books).filter(Books.id == book_id).first()
@@ -106,7 +106,7 @@ def delete_book(user: user_dependency,db: database_dependency, book_id: int):
 @router.post('/admin/create_issue')
 def create_issue(user: user_dependency,db: database_dependency,new_issue: IssueBook):
 
-    if user is None or user.get('role') != 'librarian':
+    if user is None or user.get('role') != 'Librarian':
             raise HTTPException(status_code=401, detail='Failed Authentication')
 
     book = db.query(Books).filter(Books.id == new_issue.book_id).first()
@@ -151,7 +151,7 @@ def create_issue(user: user_dependency,db: database_dependency,new_issue: IssueB
 @router.put('/admin/return_book/{issue_id}')
 def return_book(user: user_dependency,db: database_dependency,issue_id: int):
 
-    if user is None or user.get('role') != 'librarian':
+    if user is None or user.get('role') != 'Librarian':
             raise HTTPException(status_code=401, detail='Failed Authentication')
 
     issue = db.query(IssueRecords).filter(IssueRecords.id == issue_id).first()
@@ -175,7 +175,7 @@ def return_book(user: user_dependency,db: database_dependency,issue_id: int):
 @router.put('/admin/fine/pay/{issue_id}')
 def fine_paid(user: user_dependency,db: database_dependency,issue_id: int):
 
-    if user is None or user.get('role') != 'librarian':
+    if user is None or user.get('role') != 'Librarian':
             raise HTTPException(status_code=401, detail='Failed Authentication')
 
     issue = db.query(IssueRecords).filter(IssueRecords.id == issue_id).first()

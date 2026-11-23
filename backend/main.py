@@ -1,17 +1,30 @@
 from fastapi import FastAPI,Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
-import models
+from router import admin
+import models as models
 from models import Books,Users,Reservations,IssueRecords
 from typing import Annotated, Optional
 from database import engine,SessionLocal
 from fastapi.responses import JSONResponse
-from router import auth,admin
+from fastapi.middleware.cors import CORSMiddleware
+from router import auth
 from router.auth import get_current_user
 
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(auth.router)
 app.include_router(admin.router)
 
@@ -26,9 +39,9 @@ database_dependency = Annotated[Session,Depends(get_db)]
 user_dependency = Annotated[dict,Depends(get_current_user)]
 
 @app.get('/books/all')
-def get_all_books(user: user_dependency, db: database_dependency):
-    if user is None:
-        raise HTTPException(status_code=401, detail='Failed Authentication')
+def get_all_books( db: database_dependency):
+    # if user is None:
+    #     raise HTTPException(status_code=401, detail='Failed Authentication')
     books = db.query(Books).all()
     return books
 

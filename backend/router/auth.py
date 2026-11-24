@@ -135,4 +135,23 @@ def update_password(user: user_dependency,db : database_dependency, update_passw
     db.add(user)
     db.commit()
     return JSONResponse(status_code= 200, content={'massage': 'Password updated Successfully..'}) 
- 
+
+
+@router.get('/user')
+def get_user_details(user: user_dependency, db: database_dependency):
+    if user is None:
+        raise HTTPException(status_code=401, detail='Failed Authentication')
+    
+    current_user = db.query(Users).filter(Users.id == user.get('id')).first()
+    if current_user is None:
+        raise HTTPException(status_code=404, detail='User not found')
+    
+    return {
+        'id': current_user.id,
+        'email': current_user.email,
+        'username': current_user.username,
+        'firstname': current_user.firstname,
+        'lastname': current_user.lastname,
+        'role': current_user.role,
+        'is_active': current_user.is_active
+    }

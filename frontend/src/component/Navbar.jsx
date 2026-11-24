@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
+  const { authUser, logout } = useContext(AuthContext);
   return (
     <div className="navbar bg-base-100 shadow-sm py-2 px-5">
       <div className="navbar-start">
@@ -28,51 +31,35 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Item 1</a>
+              <Link to={'/'}>Home</Link>
             </li>
             <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
+              <Link to={'/browse_books'}>Browse Books</Link>
             </li>
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 font-bold">
           <li>
-            <a>Item 1</a>
-          </li>
+            <Link to={'/'}>Home</Link>
+          </li>  
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2 bg-base-100 w-40 z-1">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
+            <Link to={'/browse_books'}>Browse Books</Link>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <Link className="btn" to={'/login'}>Login</Link>
+        {authUser ? (
+          <button onClick={logout} className="btn">
+            Logout
+          </button>
+        ) : (
+          <Link className="btn" to={"/login"}>
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

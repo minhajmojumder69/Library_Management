@@ -33,10 +33,13 @@ const AuthProvider = ({children}) => {
         
     },[token])
 
-    console.log(authUser);
+    const logout = ()=>{
+        localStorage.removeItem('lm_token')
+        setAuthUser(null)
+    }
 
     return (
-        <AuthContext.Provider value={{authUser,setAuthUser}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{authUser,setAuthUser,logout}}>{children}</AuthContext.Provider>
     );
 };
 

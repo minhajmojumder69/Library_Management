@@ -5,7 +5,7 @@ const BooksCard = ({ book }) => {
 
       <figure className="h-66 bg-base-200">
         <img
-          src={book.cover_image || "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"}
+          src={book.cover_image || "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/b3fe6157792089.59e4639237ae7.jpg"}
           alt={book.title}
           className="w-full h-full object-cover"
         />

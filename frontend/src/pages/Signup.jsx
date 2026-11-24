@@ -39,9 +39,7 @@ const Signup = () => {
         <div className="text-center">
           <h1 className="text-5xl font-bold">Sign Up now!</h1>
           <p className="py-6 w-96">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            Please fill the input correctly
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">

@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 
 const BooksCard = ({ book }) => {
   return (
@@ -30,9 +31,9 @@ const BooksCard = ({ book }) => {
           By {book.author}
         </p>
 
-        <p className="text-sm text-gray-600 line-clamp-2">
+        {/* <p className="text-sm text-gray-600 line-clamp-2">
           {book.description}
-        </p>
+        </p> */}
 
         <div className="divider my-0"></div>
 
@@ -44,12 +45,12 @@ const BooksCard = ({ book }) => {
             </p>
           </div>
 
-          <div className="text-right">
+          {/* <div className="text-right">
             <p className="text-xs text-gray-500">Available Copies</p>
             <p className="font-semibold text-sm">
               {book.available_copies} / {book.total_copies}
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-1">
@@ -65,9 +66,9 @@ const BooksCard = ({ book }) => {
         </div>
 
         <div className="card-actions mt-2">
-          <button className="btn btn-primary btn-sm w-full">
+          <Link to={`/books/${book.id}`}><button className="btn btn-primary btn-sm w-full">
             View Details
-          </button>
+          </button></Link>
         </div>
 
       </div>

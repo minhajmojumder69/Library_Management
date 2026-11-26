@@ -4,6 +4,7 @@ import Root from "../layout/Root";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import BrowseBooks from "../pages/BrowseBooks";
+import BookDetails from "../pages/BookDetails";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         {
           path:'/browse_books',
           element: <BrowseBooks/>
+        },
+        {
+          path:'/books/:id',
+          element: <BookDetails/>
         }
     ]
   },

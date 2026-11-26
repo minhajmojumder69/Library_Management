@@ -48,6 +48,9 @@ const Navbar = () => {
           <li>
             <Link to={'/browse_books'}>Browse Books</Link>
           </li>
+          <li>
+            <Link to={'/browse_books'}>My Reserve</Link>
+          </li>
         </ul>
       </div>
       <div className="navbar-end">
